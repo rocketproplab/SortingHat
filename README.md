@@ -15,3 +15,5 @@ To be sorted into your house, clone this repository. Run python from the root of
 
 ### Rules
 * Thou shall not be more than 10 minutes late to workdays
+* Thou shall post weekly updates by Monday
+* Thou shall give advance notice of absences or delayed appearances to workdays, when possible
