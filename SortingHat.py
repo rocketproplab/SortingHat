@@ -7,6 +7,7 @@ import time
 import sys
 import string
 
+
 class sortingHat():
     def __init__(self):
         self.isPM = False
