@@ -32,7 +32,8 @@ class sortingHat():
             'brandon nyugen': 'Slytherin',
         }
         self.quotes = ['Hmm, difficult. VERY difficult. Plenty of courage, I see. Not a bad mind, either. There\'s talent, oh yes. And a thirst to prove yourself. But where to put you?',
-                       'Ah! I know just what to do with you...']
+                       'Ah! I know just what to do with you...',
+                       'I\'ll have alook inside your mind and tell where you belong!']
 
     def get_name(self):
         self.rawName = input('Enter your first and last name (ex: \'Nikola Tesla\'): ')
