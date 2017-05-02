@@ -10,11 +10,12 @@ import string
 class sortingHat():
     def __init__(self):
         self.isPM = False
+        self.quoteSpecified = False
         self.set_Constants()
         self.get_name()
-        if not(self.isPM):
-            self.sort()
-            self.show_result()
+        self.check_name()
+        self.sort()
+        self.show_result()
 
     def set_Constants(self):
         self.houses = ['Slytherin', 'Gryffindor', 'Hufflepuff', 'Ravenclaw']
@@ -30,6 +31,10 @@ class sortingHat():
             'alex lim': 'Hufflepuff',
             'parker brown': 'Ravenclaw',
             'brandon nyugen': 'Slytherin',
+        }
+        self.nameSpecifiedQuotes = {
+            'harry potter': 0,
+            'ron weasley': 1,
         }
         self.quotes = ['Hmm, difficult. VERY difficult. Plenty of courage, I see. Not a bad mind, either. There\'s talent, oh yes. And a thirst to prove yourself. But where to put you?',
                        'Ah! I know just what to do with you...',
@@ -49,9 +54,11 @@ class sortingHat():
     def sort(self):
         random.seed(self.asciiName)
         time.sleep(0.5)
-        self.get_quote()
+        if self.quoteSpecified:
+            self.get_quote(self.nameSpecifiedQuotes[self.rawName])
+        else:
+            self.get_quote()
         time.sleep(1.5)
-        self.check_name()
         if not(self.isPM):
             self.houseChoice = random.randrange(0, 4, 1)
             self.sortedHouse = self.houses[self.houseChoice]
@@ -77,9 +84,17 @@ class sortingHat():
             self.isPM = True
         except KeyError:
             self.isPM = False  # bool: is principal member of club
+        try:
+            self.nameSpecifiedQuotes[self.rawName]
+            self.quoteSpecified = True
+        except KeyError:
+            self.quoteSpecified = False  # bool: is principal member of club
 
-    def get_quote(self):
-        i = random.randrange(0, len(self.quotes), 1)
+    def get_quote(self, *arg):
+        if arg:
+            i = arg[0]
+        else:
+            i = random.randrange(0, len(self.quotes), 1)
         self.delay_print(i)
 
     def delay_print(self, i):
@@ -106,10 +121,14 @@ class sortingHat():
         else:
             return True
 
+
 if __name__ == '__main__':
     try:
         sp.call('clear')
     except OSError:
         sp.call('cls', shell=True)
 
-    RPLsorting = sortingHat()
+    try:
+        RPLsorting = sortingHat()
+    except KeyboardInterrupt:
+        print('\nKeyboardInterrupt: Exiting')
