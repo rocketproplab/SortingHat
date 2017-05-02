@@ -49,7 +49,7 @@ class sortingHat():
             'albus dumbledore': 'Gryffindor',
             'cameron flannery': 'Gryffindor',
             'michael phalen': 'Gryffindor',
-            'alex lim': 'Hufflepuff',
+            'alex lim': 'Slytherin',
             'parker brown': 'Ravenclaw',
             'brandon nyugen': 'Ravenclaw',
         }
