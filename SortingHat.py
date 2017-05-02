@@ -36,7 +36,13 @@ class sortingHat():
                        'I\'ll have alook inside your mind and tell where you belong!']
 
     def get_name(self):
-        self.rawName = input('Enter your first and last name (ex: \'Nikola Tesla\'): ')
+        while True:
+            self.rawName = input('Enter your first and last name (ex: \'Nikola Tesla\'): ')
+            if self.isEmpty(self.rawName):
+                print('Error: Please enter your name.')
+                continue
+            else:
+                break
         self.rawName = self.rawName.lower()
         self.asciiName = float(''.join(str(ord(c)) for c in self.rawName))
 
@@ -51,7 +57,7 @@ class sortingHat():
             self.sortedHouse = self.houses[self.houseChoice]
 
     def show_result(self):
-        print('\n'+ self.sortedHouse.upper()+'!')
+        print('\n' + self.sortedHouse.upper()+'!')
 
     def print_crest(self):
         """print house crest *** NOT CURRENTLY USED*** """
@@ -94,6 +100,11 @@ class sortingHat():
         else:
             return 0
 
+    def isEmpty(self, text):
+        if text:
+            return False
+        else:
+            return True
 
 if __name__ == '__main__':
     try:
