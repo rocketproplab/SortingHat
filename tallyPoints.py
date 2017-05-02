@@ -8,6 +8,6 @@ filePath = os.path.join(cwd, fileName)
 pd.read_excel(filePath)
 
 df = pd.read_excel(filePath, header=0)
-ax = df.plot.bar(color=['r','c','b','g'])
+ax = df.plot.bar(color=['r', 'y', 'b', 'g'])
 ax.set_ylabel('Points')
 plt.savefig('assets/pointTally.jpg')
