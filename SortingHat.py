@@ -14,7 +14,8 @@ class sortingHat():
             self.show_result()
 
     def get_name(self):
-        self.rawName = input('Enter your first and last name: ')
+        self.rawName = input('Enter your first and last name (ex: \'Nikola Tesla\'): ')
+        self.rawName = self.rawName.lower()
         self.check_name()
         self.asciiName = float(''.join(str(ord(c)) for c in self.rawName))
 
@@ -39,16 +40,22 @@ class sortingHat():
         """check_name checks to see if the entered name is a principal member.
         If yes, house is predetermined with dictionary also defined in this
         method"""
-        self.principalMembers = {
-            'Cameron Flannery': 'Ravenclaw',
-            'Michael Phalen': 'Gryffindor',
-            'Alex Lim': 'Hufflepuff',
-            'Parker Brown': 'Ravenclaw',
-            'Brandon Nyugen': 'Ravenclaw',
+        self.specialNames = {
+            'harry potter': 'Gryffindor',
+            'hermione granger': 'Gryffindor',
+            'ron weasley': 'Gryffindor',
+            'draco malfoy': 'Slytherin',
+            'lord voldemort': 'Slytherin',
+            'albus dumbledore': 'Gryffindor',
+            'cameron flannery': 'Gryffindor',
+            'michael phalen': 'Gryffindor',
+            'alex lim': 'Hufflepuff',
+            'parker brown': 'Ravenclaw',
+            'brandon nyugen': 'Ravenclaw',
         }
 
         try:
-            self.sortedHouse = self.principalMembers[self.rawName]
+            self.sortedHouse = self.specialNames[self.rawName]
             self.show_result()
             self.isPM = True
         except KeyError:
