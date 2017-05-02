@@ -2,7 +2,7 @@
 import random
 import subprocess as sp
 import os
-from common.ascii_art import AsciiImage
+from common.ascii_art import AsciiImage, AsciiText
 import time
 import sys
 import string
@@ -65,7 +65,9 @@ class sortingHat():
             self.sortedHouse = self.houses[self.houseChoice]
 
     def show_result(self):
-        print('\n' + self.sortedHouse.upper()+'!')
+        houseText = AsciiText(self.sortedHouse.upper()+'!')
+        houseText.display_text()
+        print('\n')
 
     def print_crest(self):
         """print house crest *** NOT CURRENTLY USED*** """
