@@ -73,7 +73,7 @@ class sortingHat():
             self.isPM = False  # bool: is principal member of club
 
     def get_quote(self):
-        i = random.randrange(0, 2, 1)
+        i = random.randrange(0, len(self.quotes), 1)
         self.delay_print(i)
 
     def delay_print(self, i):
