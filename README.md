@@ -10,6 +10,8 @@ Now, while you are in RPL, your house will be like your family. Your triumphs wi
 <br/>
 To be sorted into your house, clone this repository. Run python from the root of this repsitory and call `SortingHat.py` with python3.
 
+### Current Point Tally
+<img src="/assets/pointTally.jpg" width="400">
 
 ### Rules
 * Thou shall not be more than 10 minutes late to workdays
