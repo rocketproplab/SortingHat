@@ -9,7 +9,12 @@ import string
 
 
 class sortingHat():
-    def __init__(self):
+    def __init__(self, *arg):
+        if arg:
+            self.debug = arg[0]
+        else:
+            self.debug = False
+        print('debug state:', self.debug)
         self.isPM = False
         self.quoteSpecified = False
         self.set_Constants()
@@ -39,30 +44,36 @@ class sortingHat():
         }
         self.quotes = ['Hmm, difficult. VERY difficult. Plenty of courage, I see. Not a bad mind, either. There\'s talent, oh yes. And a thirst to prove yourself. But where to put you?',
                        'Ah! I know just what to do with you...',
-                       'I\'ll have alook inside your mind and tell where you belong!']
+                       'I\'ll have alook inside your mind and tell where you belong!',
+                       'Curious, very curious...']
 
     def get_name(self):
         while True:
+            if self.debug:
+                break
             self.rawName = input('Enter your first and last name (ex: \'Nikola Tesla\'): ')
             if self.isEmpty(self.rawName):
                 print('Error: Please enter your name.')
                 continue
             else:
                 break
+
         self.rawName = self.rawName.lower()
-        self.asciiName = float(''.join(str(ord(c)) for c in self.rawName))
+        self.asciiName = float(''.join(str(ord(c)) for c in self.rawName)) - 10**40
 
     def sort(self):
         random.seed(self.asciiName)
-        time.sleep(0.5)
-        if self.quoteSpecified:
-            self.get_quote(self.nameSpecifiedQuotes[self.rawName])
-        else:
-            self.get_quote()
-        time.sleep(1.5)
         if not(self.isPM):
             self.houseChoice = random.randrange(0, 4, 1)
             self.sortedHouse = self.houses[self.houseChoice]
+        if not(self.debug):
+            time.sleep(0.5)
+            if self.quoteSpecified:
+                self.get_quote(self.nameSpecifiedQuotes[self.rawName])
+            else:
+                self.get_quote()
+            time.sleep(1.5)
+
 
     def show_result(self):
         houseText = AsciiText(self.sortedHouse.upper()+'!')
