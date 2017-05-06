@@ -195,12 +195,15 @@ class sortingHat():
 
 
 if __name__ == '__main__':
-    try:
-        sp.call('clear')
-    except OSError:
-        sp.call('cls', shell=True)
-
-    try:
-        RPLsorting = sortingHat()
-    except KeyboardInterrupt:
-        print('\nKeyboardInterrupt: Exiting')
+    cond = True
+    while cond:
+        try:
+            sp.call('clear')
+        except OSError:
+            sp.call('cls', shell=True)
+        try:
+            RPLsorting = sortingHat()
+            input("Press Enter to Continue")
+        except KeyboardInterrupt:
+            print('\nKeyboardInterrupt: Exiting')
+            cond = False
