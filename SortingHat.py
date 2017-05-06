@@ -1,27 +1,79 @@
 #!/usr/bin/env python
 import random
 import subprocess as sp
-import os
 from common.ascii_art import AsciiImage, AsciiText
 import time
 import sys
 import string
+import argparse
+import pandas as pd
+import numpy as np
+import os
+
+def parsey():
+    parser = argparse.ArgumentParser(description='Sorting Hat sorts, coders code.')
+    parser.add_argument('-train', dest='train', metavar='N', type=str, nargs=1,
+                        help='File used to train the sorting hat each year.')
+    parser.add_argument('-debug', dest='debug', action='store_true',
+                        help='Set debug state true')
+    args = parser.parse_args()
+    return args
 
 
 class sortingHat():
-    def __init__(self, *arg):
-        if arg:
-            self.debug = arg[0]
-        else:
-            self.debug = False
-        print('debug state:', self.debug)
-        self.isPM = False
-        self.quoteSpecified = False
+    '''This is the Sorting Hat.
+    The Sorting Hat uses a "trained" pseudo-random number generator
+    seeded with the users name to determine the house placement for the user.
+    The Hat needs to be trained with a new set of names each time it is run.'''
+    def __init__(self):
+        self.debug = False
+        self.training = False
         self.set_Constants()
-        self.get_name()
-        self.check_name()
-        self.sort()
-        self.show_result()
+        self.get_flags()  # sets training state and debug state
+        if not self.training:
+            self.isPM = False
+            self.quoteSpecified = False
+            self.get_name()
+            self.check_name()
+            self.sort()
+            self.show_result()
+        elif self.training:
+            self.train()
+
+    def get_flags(self):
+        flags = parsey()
+        if flags.train is not None:
+            self.trainingFile = flags.train[0]  # only take first entry
+            self.training = True
+            print('Training flag detected; Entering Training State')
+        else:
+            self.training = False
+        if flags.debug is not False:
+            self.debug = True
+            print('Debug State: True')
+
+    def train(self):
+        filePath = os.path.join(os.getcwd(), self.trainingFile)
+        print('\nFile Path:', filePath)
+        df = pd.read_csv(filePath, header=0)
+        names = df[df.columns[0]]
+        numMembers = np.ones(4)
+        num = len(names)//4  # integer division
+        numMembers = numMembers*num
+        print('Total number of members:', len(names))
+        print('Total number of members:', len(names)//4)
+        print('Number of members in each house (before remainder)', num)
+        print('Remainder:', len(names) % 4)
+        for i in range(0, len(names) % 4):  # randomly select a house to award the remainder members to
+            j = random.randrange(0, 4)
+            numMembers[j] = numMembers[j] + 1
+        print('\nHere are the resulting house member counts:\n')
+        print(self.houses)
+        print(numMembers)
+
+        numbersDist = []  # empty array to hold random numbers generated below
+        for i in range(0, len(names)):
+            numbers.append(random.random())
 
     def set_Constants(self):
         self.houses = ['Slytherin', 'Gryffindor', 'Hufflepuff', 'Ravenclaw']
@@ -73,7 +125,6 @@ class sortingHat():
             else:
                 self.get_quote()
             time.sleep(1.5)
-
 
     def show_result(self):
         houseText = AsciiText(self.sortedHouse.upper()+'!')
