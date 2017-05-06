@@ -116,7 +116,8 @@ class sortingHat():
 
     def sort(self):
         if not(self.isPM):
-            m = re.sub("(.?)(\w+?\s+?)(\w+)$", r"\1\3", self.rawName)
+            m=re.sub("([a-zA-Z])([a-zA-Z]+?[^a-zA-Z]+?)([a-zA-Z]+)[^a-zA-Z]?$", r"\1\3", self.rawName)
+            m=re.sub("[^a-zA-Z]","",m)
             hasher = hashlib.sha256()
             hasher.update(m.encode('utf-8'))
             random.seed(hasher.hexdigest(),version=2)
