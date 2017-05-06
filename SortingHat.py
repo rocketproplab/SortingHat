@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+import re
+import hashlib
 import random
 import subprocess as sp
 from common.ascii_art import AsciiImage, AsciiText
@@ -58,7 +60,7 @@ class sortingHat():
         df = pd.read_csv(filePath, header=0)
         names = df[df.columns[0]]
         numMembers = np.ones(4)
-        num = len(names)//4  # integer division
+        num = int(ceil(len(names)/4+.5))  # integer division
         numMembers = numMembers*num
         print('Total number of members:', len(names))
         print('Total number of members:', len(names)//4)
@@ -111,12 +113,16 @@ class sortingHat():
                 break
 
         self.rawName = self.rawName.lower()
-        self.asciiName = float(''.join(str(ord(c)) for c in self.rawName)) - 10**40
 
     def sort(self):
-        random.seed(self.asciiName)
         if not(self.isPM):
-            self.houseChoice = random.randrange(0, 4, 1)
+            m = re.sub("(.?)(\w+?\s+?)(\w+)$", r"\1\3", self.rawName)
+            hasher = hashlib.sha256()
+            hasher.update(m.encode('utf-8'))
+            random.seed(hasher.hexdigest(),version=2)
+            for j in range(0,4):
+                hasher.update(repr(random.random()).encode('utf-8'))
+            self.houseChoice = int(hasher.hexdigest(), 16) % 4
             self.sortedHouse = self.houses[self.houseChoice]
         if not(self.debug):
             time.sleep(0.5)
